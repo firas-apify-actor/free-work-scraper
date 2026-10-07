@@ -2,8 +2,11 @@
   "actorSpecification": 1,
   "name": "free-work-scraper",
   "title": "Free-Work Scraper — IT Freelance Missions & Day Rates (TJM)",
-  "version": "0.1",
+  "version": "0.2",
   "buildTag": "latest",
   "dockerfile": "../Dockerfile",
-  "input": "./input_schema.json"
+  "input": "./input_schema.json",
+  "storages": {
+    "dataset": "./dataset_schema.json"
+  }
 }

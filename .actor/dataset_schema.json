@@ -1,0 +1,47 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "type": "object",
+    "properties": {
+      "id": { "type": "integer", "description": "Free-Work mission id" },
+      "url": { "type": "string", "description": "Link to the original mission on Free-Work" },
+      "title": { "type": "string" },
+      "company": { "type": "string", "description": "Company name only" },
+      "contractType": { "type": "string", "description": "freelance, cdi, cdd" },
+      "dailyRateMin": { "type": ["number", "null"], "description": "Day rate (TJM) lower bound, EUR" },
+      "dailyRateMax": { "type": ["number", "null"], "description": "Day rate (TJM) upper bound, EUR" },
+      "dailyRateCurrency": { "type": "string", "description": "Always EUR" },
+      "salaryMin": { "type": ["number", "null"], "description": "Annual salary lower bound, EUR" },
+      "salaryMax": { "type": ["number", "null"], "description": "Annual salary upper bound, EUR" },
+      "remoteMode": { "type": "string", "description": "full, partial, none or unknown" },
+      "location": { "type": "string" },
+      "region": { "type": "string" },
+      "skills": { "type": "array", "items": { "type": "string" } },
+      "durationMonths": { "type": ["integer", "null"] },
+      "startDate": { "type": "string", "description": "ISO date, empty if unknown" },
+      "experienceLevel": { "type": "string", "description": "junior, intermediate, senior, expert or unknown" },
+      "publishedAt": { "type": "string", "description": "ISO 8601 timestamp" },
+      "description": { "type": "string", "description": "Plain text, only with includeDescriptions" },
+      "scrapedAt": { "type": "string", "description": "ISO 8601 timestamp" }
+    },
+    "required": ["id", "url", "title"]
+  },
+  "views": {
+    "overview": {
+      "title": "Overview",
+      "transformation": { "fields": ["title", "company", "dailyRateMin", "dailyRateMax", "remoteMode", "location", "publishedAt", "url"] },
+      "display": {
+        "properties": {
+          "title": { "label": "Title" },
+          "company": { "label": "Company" },
+          "dailyRateMin": { "label": "TJM min (EUR)", "format": "number" },
+          "dailyRateMax": { "label": "TJM max (EUR)", "format": "number" },
+          "remoteMode": { "label": "Remote" },
+          "location": { "label": "Location" },
+          "publishedAt": { "label": "Published", "format": "date" },
+          "url": { "label": "Link", "format": "link" }
+        }
+      }
+    }
+  }
+}

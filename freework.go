@@ -173,7 +173,7 @@ func (r rawJob) mission(withDesc bool) Mission {
 		DailyRateMin: r.MinDailySalary, DailyRateMax: r.MaxDailySalary, DailyRateCurrency: "EUR",
 		SalaryMin: r.MinAnnualSalary, SalaryMax: r.MaxAnnualSalary, RemoteMode: rm,
 		Location: r.Location.Label, Region: r.Location.AdminLevel1, DurationMonths: r.Duration,
-		ExperienceLevel: r.ExperienceLevel, PublishedAt: r.PublishedAt,
+		ExperienceLevel: normalizeExperience(r.ExperienceLevel), PublishedAt: r.PublishedAt,
 		ScrapedAt: time.Now().UTC().Format(time.RFC3339), Skills: []string{},
 	}
 	for _, s := range r.Skills {
@@ -181,6 +181,9 @@ func (r rawJob) mission(withDesc bool) Mission {
 	}
 	if len(r.StartsAt) >= 10 {
 		m.StartDate = r.StartsAt[:10]
+	}
+	if m.DailyRateMin == nil && m.DailyRateMax == nil {
+		m.DailyRateMin, m.DailyRateMax = parseRate(plainText(r.Title + "\n" + r.Description))
 	}
 	if withDesc {
 		m.Description = plainText(r.Description)

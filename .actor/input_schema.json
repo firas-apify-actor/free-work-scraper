@@ -6,18 +6,123 @@
     "keywords": {
       "title": "Keywords",
       "type": "string",
-      "description": "Search text, for example a job title or a technology.",
+      "description": "Search text: a job title or a technology.",
       "default": "devops",
       "prefill": "devops",
       "editor": "textfield"
     },
+    "contractTypes": {
+      "title": "Contract types",
+      "type": "array",
+      "description": "Contract types to include: freelance, cdi or cdd.",
+      "editor": "select",
+      "items": {
+        "type": "string",
+        "enum": [
+          "freelance",
+          "cdi",
+          "cdd"
+        ],
+        "enumTitles": [
+          "Freelance",
+          "CDI (permanent)",
+          "CDD (fixed-term)"
+        ]
+      },
+      "default": [
+        "freelance"
+      ],
+      "prefill": [
+        "freelance"
+      ]
+    },
+    "remoteMode": {
+      "title": "Remote mode",
+      "type": "string",
+      "description": "Filter on remote work: any, full remote, partial (hybrid) or none (on site).",
+      "enum": [
+        "any",
+        "full",
+        "partial",
+        "none"
+      ],
+      "enumTitles": [
+        "Any",
+        "Full remote",
+        "Partial remote",
+        "On site"
+      ],
+      "default": "any",
+      "prefill": "any"
+    },
+    "locations": {
+      "title": "Locations",
+      "type": "array",
+      "description": "City, department or region names, for example Paris or Île-de-France. Empty means all of France.",
+      "editor": "stringList",
+      "default": [],
+      "prefill": [
+        "Paris"
+      ]
+    },
+    "minDailyRate": {
+      "title": "Minimum daily rate (EUR)",
+      "type": "integer",
+      "description": "Keep only missions whose day rate (TJM) is at least this many euros. Missions without a rate are dropped when set.",
+      "minimum": 0,
+      "prefill": 500
+    },
+    "publishedWithinDays": {
+      "title": "Published within (days)",
+      "type": "integer",
+      "description": "Only missions published in the last N days.",
+      "minimum": 1,
+      "default": 7,
+      "prefill": 7
+    },
     "maxItems": {
       "title": "Max items",
       "type": "integer",
-      "description": "Hard cap on the number of missions returned.",
+      "description": "Hard cap on the number of missions returned (and billed).",
+      "minimum": 1,
       "default": 100,
-      "prefill": 100,
-      "minimum": 1
+      "prefill": 100
+    },
+    "includeDescriptions": {
+      "title": "Include descriptions",
+      "type": "boolean",
+      "description": "Add the mission description as plain text (emails and phone numbers removed).",
+      "default": false,
+      "prefill": false
+    },
+    "onlyNew": {
+      "title": "Only new missions (monitor mode)",
+      "type": "boolean",
+      "description": "Return only missions not seen in previous runs with the same state key.",
+      "default": false,
+      "prefill": false
+    },
+    "stateKey": {
+      "title": "State key",
+      "type": "string",
+      "description": "Name of the monitor state, so each saved task keeps its own list of seen missions.",
+      "default": "default",
+      "prefill": "default",
+      "editor": "textfield"
+    },
+    "computeRateBenchmark": {
+      "title": "Compute day-rate benchmark",
+      "type": "boolean",
+      "description": "Add a median, 25th and 75th percentile day rate for the results (paid add-on).",
+      "default": false,
+      "prefill": false
+    },
+    "slackWebhookUrl": {
+      "title": "Slack webhook URL",
+      "type": "string",
+      "description": "Optional Slack incoming webhook that receives one message when new missions are found.",
+      "editor": "textfield",
+      "isSecret": true
     }
   }
 }
