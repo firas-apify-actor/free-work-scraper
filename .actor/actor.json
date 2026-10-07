@@ -2,11 +2,17 @@
   "actorSpecification": 1,
   "name": "free-work-scraper",
   "title": "Free-Work Scraper — IT Freelance Missions & Day Rates (TJM)",
-  "version": "0.2",
+  "version": "1.0",
   "buildTag": "latest",
   "dockerfile": "../Dockerfile",
   "input": "./input_schema.json",
   "storages": {
     "dataset": "./dataset_schema.json"
-  }
+  },
+  "description": "Scrape IT freelance missions and jobs from Free-Work with structured day rates (TJM), stack, remote mode and location. Monitor mode returns only new missions.",
+  "readme": "../README.md",
+  "categories": [
+    "JOBS",
+    "LEAD_GENERATION"
+  ]
 }
