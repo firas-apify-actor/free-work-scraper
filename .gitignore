@@ -3,3 +3,5 @@ storage/
 /free-work-scraper
 *.exe
 .DS_Store
+.swarm/
+ruvector.db
