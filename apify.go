@@ -137,6 +137,10 @@ func (c *Client) PushData(items ...any) error {
 		if err := os.MkdirAll(dir, 0o755); err != nil {
 			return err
 		}
+		if c.seq == 0 { // continue after files left by an earlier run
+			old, _ := os.ReadDir(dir)
+			c.seq = len(old)
+		}
 		for _, it := range items {
 			c.seq++
 			b, err := json.MarshalIndent(it, "", "  ")

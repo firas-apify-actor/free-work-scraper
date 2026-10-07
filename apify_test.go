@@ -35,4 +35,11 @@ func TestLocalRoundTrip(t *testing.T) {
 	if _, err := os.Stat(filepath.Join(c.dir, "datasets", "default", "000000002.json")); err != nil {
 		t.Fatal(err)
 	}
+	c2 := &Client{dir: c.dir} // a new process must not overwrite earlier items
+	if err := c2.PushData(map[string]int{"a": 3}); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := os.Stat(filepath.Join(c.dir, "datasets", "default", "000000003.json")); err != nil {
+		t.Fatal(err)
+	}
 }
