@@ -12,11 +12,12 @@ import (
 )
 
 // Client talks to the Apify platform, or to ./storage when run locally.
-// ponytail: dataset/KV helpers only; charging arrives in #21.
 type Client struct {
 	runID, token, datasetID, kvID string
 	dir                           string // local storage root
-	seq                           int
+	seq                           map[string]int
+	charging                      *charging
+	apiBase                       string // test override
 }
 
 func NewClient() *Client {
@@ -33,12 +34,23 @@ func NewClient() *Client {
 func (c *Client) local() bool { return c.runID == "" }
 
 func (c *Client) api(method, path string, body []byte) ([]byte, int, error) {
-	req, err := http.NewRequest(method, "https://api.apify.com/v2"+path, bytes.NewReader(body))
+	return c.apiH(method, path, body, nil)
+}
+
+func (c *Client) apiH(method, path string, body []byte, hdr map[string]string) ([]byte, int, error) {
+	base := c.apiBase
+	if base == "" {
+		base = "https://api.apify.com/v2"
+	}
+	req, err := http.NewRequest(method, base+path, bytes.NewReader(body))
 	if err != nil {
 		return nil, 0, err
 	}
 	req.Header.Set("Authorization", "Bearer "+c.token)
 	req.Header.Set("Content-Type", "application/json")
+	for k, v := range hdr {
+		req.Header.Set(k, v)
+	}
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return nil, 0, err
@@ -130,28 +142,36 @@ func (c *Client) Input(v any) error {
 	return err
 }
 
+// pushLocal appends items to ./storage/datasets/<name>, continuing after earlier runs' files.
+func (c *Client) pushLocal(name string, items ...any) error {
+	dir := filepath.Join(c.dir, "datasets", name)
+	if err := os.MkdirAll(dir, 0o755); err != nil {
+		return err
+	}
+	if c.seq == nil {
+		c.seq = map[string]int{}
+	}
+	if c.seq[name] == 0 {
+		old, _ := os.ReadDir(dir)
+		c.seq[name] = len(old)
+	}
+	for _, it := range items {
+		c.seq[name]++
+		b, err := json.MarshalIndent(it, "", "  ")
+		if err != nil {
+			return err
+		}
+		if err := os.WriteFile(filepath.Join(dir, fmt.Sprintf("%09d.json", c.seq[name])), b, 0o644); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 // PushData appends items to the default dataset.
 func (c *Client) PushData(items ...any) error {
 	if c.local() {
-		dir := filepath.Join(c.dir, "datasets", "default")
-		if err := os.MkdirAll(dir, 0o755); err != nil {
-			return err
-		}
-		if c.seq == 0 { // continue after files left by an earlier run
-			old, _ := os.ReadDir(dir)
-			c.seq = len(old)
-		}
-		for _, it := range items {
-			c.seq++
-			b, err := json.MarshalIndent(it, "", "  ")
-			if err != nil {
-				return err
-			}
-			if err := os.WriteFile(filepath.Join(dir, fmt.Sprintf("%09d.json", c.seq)), b, 0o644); err != nil {
-				return err
-			}
-		}
-		return nil
+		return c.pushLocal("default", items...)
 	}
 	b, err := json.Marshal(items)
 	if err != nil {
