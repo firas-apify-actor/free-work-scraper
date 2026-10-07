@@ -127,6 +127,7 @@
         ]
       },
       "display": {
+        "component": "table",
         "properties": {
           "title": {
             "label": "Title"

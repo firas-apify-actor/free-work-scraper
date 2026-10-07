@@ -20,6 +20,7 @@ type Input struct {
 	StateKey            string   `json:"stateKey"`
 	SlackWebhookURL     string   `json:"slackWebhookUrl"`
 	ComputeBenchmark    bool     `json:"computeRateBenchmark"`
+	UseApifyProxy       bool     `json:"useApifyProxy"`
 }
 
 func defaultInput() Input {
@@ -76,7 +77,7 @@ func run(ctx context.Context) error {
 	var pushErr error
 	limitHit := false
 	pushed := 0
-	st, err := NewFetcher().Search(ctx, in, skip, func(m Mission) bool {
+	st, err := NewFetcher(in.UseApifyProxy).Search(ctx, in, skip, func(m Mission) bool {
 		m.FirstSeenAt, m.IsNew = m.ScrapedAt, true
 		if at, ok := mon.FirstSeen(m.ID); ok {
 			m.FirstSeenAt, m.IsNew = at, false

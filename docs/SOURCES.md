@@ -80,3 +80,7 @@ Sample (trimmed, texts cut to 200 chars): `testdata/job_postings_sample.json`.
 2. ~~remoteMode API filter~~ confirmed (`remoteMode=full|partial|none`).
 3. Max safe `itemsPerPage`; does the datacenter proxy get blocked?
 4. Is there an internship contract value?
+
+## 5. Platform findings (2026-10-08)
+- Direct requests from Apify platform IPs work (5 missions in 2 s). Routing through the Apify datacenter proxy failed at CONNECT with `Forbidden`, so `useApifyProxy` defaults to false.
+- Monitor state (named key-value store) and dataset/OUTPUT writes verified on the platform.

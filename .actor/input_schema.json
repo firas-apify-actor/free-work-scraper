@@ -123,6 +123,13 @@
       "description": "Optional Slack incoming webhook that receives one message when new missions are found.",
       "editor": "textfield",
       "isSecret": true
+    },
+    "useApifyProxy": {
+      "title": "Use Apify Proxy",
+      "type": "boolean",
+      "description": "Route requests through Apify datacenter proxy. Leave off unless requests get blocked.",
+      "default": false,
+      "prefill": false
     }
   }
 }
