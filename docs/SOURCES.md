@@ -41,9 +41,9 @@ Returns a bare JSON array (no total count, no pagination envelope). 8 test calls
 |---|---|
 | `searchKeywords` | Free text. (`query`/`q` are ignored.) With keywords the order is relevance; **without keywords the order is newest first**. |
 | `contracts` | Scalar: `contractor`, `permanent`, `fixed-term` (other values e.g. internship not observed). Array syntax (`contracts[]=`) → HTTP 400. |
-| `remoteMode` | `full`, `partial`, `none` (field in the response; filter param name to be confirmed in M2 with a fixture — see open question 2). |
+| `remoteMode` | `full`, `partial`, `none` (**confirmed server-side filter**, 2026-10-08; also re-checked client-side). |
 | `page` | 1-based. |
-| `itemsPerPage` | Accepted (tried 2–30). Keep ≤30. |
+| `itemsPerPage` | Accepted (tried 2–30); the scraper uses 30. Pages can overlap slightly (dedupe by `id`). |
 | `premium=false` | Used by the site's home widget; not needed. |
 
 Unknown params are **silently ignored** (no error), so every filter must be verified by checking the result, not the status code. Tried and ignored: `locations`, `location`, `sort`, `order`, `orderBy`, `publishedSince`, `publishedAt`. `order[...]` → 400.
@@ -73,10 +73,10 @@ Sample (trimmed, texts cut to 200 chars): `testdata/job_postings_sample.json`.
 | `publishedWithinDays` | client-side on `publishedAt` | Without keywords results are newest-first, so stop at the first older item. With keywords order is relevance: scan up to a page cap. |
 | `minDailyRate` | client-side on `maxDailySalary` (fallback `minDailySalary`) | |
 | `maxItems` | stop condition | |
-| `includeDescriptions` | strip HTML from `description` | Always present in the list response: no detail call needed → half the requests. |
+| `includeDescriptions` (default **false**, mitigation from §1) | strip HTML, redact emails/phones from `description` | Always present in the list response: no detail call needed → half the requests. |
 
 ## 4. Open questions for M2
 1. Does the `/api/job_postings` filter param for location exist (e.g. `locations` in a different casing)? Otherwise client-side matching.
-2. Confirm `remoteMode` API filter param name (only the page param `remote` was verified).
+2. ~~remoteMode API filter~~ confirmed (`remoteMode=full|partial|none`).
 3. Max safe `itemsPerPage`; does the datacenter proxy get blocked?
 4. Is there an internship contract value?
