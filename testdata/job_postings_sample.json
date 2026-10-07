@@ -1,0 +1,354 @@
+[
+ {
+  "id": 679488,
+  "title": "Lead Azure AI Platform / Azure DevOps",
+  "slug": "lead-azure-ai-platform-azure-devops",
+  "description": "<p>Dans le cadre du projet IA de notre client, un acteur majeur du secteur de l&#039;énergie, recherche un Lead Azure AI Platform / Azure DevOps. Vous intégrerez l’équipe Cloud Azure en charge du BUIL",
+  "candidateProfile": "<ul><li><p>Expérience significative dans la conception, le déploiement et l’exploitation de plateformes Cloud.</p></li><li><p>Expérience des environnements DevOps et de l’automatisation.</p></li><li><",
+  "companyDescription": "<p>L’entreprise évolue dans un environnement professionnel à la fois exigeant, bienveillant et collaboratif. Les équipes travaillent dans un climat serein, avec une forte autonomie et des échanges flu",
+  "experienceLevel": "expert",
+  "minAnnualSalary": null,
+  "maxAnnualSalary": null,
+  "minDailySalary": 600,
+  "maxDailySalary": 700,
+  "currency": "EUR",
+  "duration": 12,
+  "durationValue": 1,
+  "durationPeriod": "year",
+  "renewable": true,
+  "remoteMode": null,
+  "applicationType": "turnover",
+  "applicationContact": null,
+  "applicationUrl": null,
+  "location": {
+   "street": null,
+   "locality": "Saint-Denis",
+   "postalCode": null,
+   "adminLevel1": "Île-de-France",
+   "adminLevel2": "Seine-Saint-Denis",
+   "country": "France",
+   "countryCode": "FR",
+   "latitude": "48.9357730",
+   "longitude": "2.3580232",
+   "key": "fr~ile-de-france~seine-saint-denis~saint-denis",
+   "label": "Saint-Denis, Île-de-France",
+   "shortLabel": "Saint-Denis"
+  },
+  "startsAt": null,
+  "company": {
+   "id": 21574,
+   "name": "Greatskills",
+   "slug": "greatskills"
+  },
+  "job": {
+   "id": 118,
+   "nameForContribution": "Ingénieur·e devops (Cloud)",
+   "nameForContributionSlug": "ingenieur-devops-cloud",
+   "nameForUser": "Ingénieur·e devops (Cloud)",
+   "nameForUserSlug": "ingenieur-devops-cloud",
+   "shortName": "Ingénieur·e devops",
+   "name": "Ingénieur·e devops (Cloud)",
+   "slug": "ingenieur-devops-cloud"
+  },
+  "skills": [
+   {
+    "id": 129748,
+    "displayed": true,
+    "name": "Azure AI",
+    "slug": "azure-ai"
+   },
+   {
+    "id": 703948,
+    "displayed": true,
+    "name": "Azure AI Foundry",
+    "slug": "azure-ai-foundry"
+   },
+   {
+    "id": 559552,
+    "displayed": true,
+    "name": "Azure DevOps ",
+    "slug": "azure-devops"
+   },
+   {
+    "id": 582,
+    "displayed": true,
+    "name": "CI/CD",
+    "slug": "ci-cd"
+   },
+   {
+    "id": 208,
+    "displayed": true,
+    "name": "Terraform",
+    "slug": "terraform"
+   }
+  ],
+  "createdAt": "2026-10-07T12:06:05+02:00",
+  "updatedAt": "2026-10-07T23:11:10+02:00",
+  "publishedAt": "2026-10-07T12:18:05+02:00",
+  "status": "published",
+  "softSkills": [
+   {
+    "id": 1,
+    "name": "Agilité",
+    "slug": "agilite"
+   },
+   {
+    "id": 2,
+    "name": "Esprit d'analyse",
+    "slug": "esprit-danalyse"
+   },
+   {
+    "id": 5,
+    "name": "Gestion de projets",
+    "slug": "gestion-de-projets"
+   },
+   {
+    "id": 9,
+    "name": "Communication",
+    "slug": "communication"
+   },
+   {
+    "id": 28,
+    "name": "Travail d'équipe",
+    "slug": "travail-dequipe"
+   }
+  ],
+  "expiredAt": "2026-12-06T12:18:05+01:00",
+  "modifiedByUserAt": "2026-10-07T12:18:07+02:00",
+  "locale": "fr_FR",
+  "premium": true,
+  "applicationForm": null,
+  "contracts": [
+   "contractor"
+  ],
+  "annualSalary": null,
+  "dailySalary": "600-700 €",
+  "published": true,
+  "noIndex": false,
+  "external": false,
+  "externalSource": null
+ },
+ {
+  "id": 679660,
+  "title": "Ingénieur devops : devops, gke",
+  "slug": "ingenieur-devops-devops-gke",
+  "description": "Opportunité Freelance – Ingénieur DevOps GKE / GCP<p>📍 <strong>Localisation : Paris – Hybride</strong><br />📅 <strong>Démarrage : ASAP</strong><br />⏳ <strong>Durée : 24 mois</strong><br /></p><p>Nous",
+  "candidateProfile": "Opportunité Freelance – Ingénieur DevOps GKE / GCP<p></p><p>Nous recherchons un <strong>Ingénieur DevOps Senior / Expert GCP &amp; GKE</strong> pour accompagner un projet d’envergure.</p>🔧 Compétences",
+  "companyDescription": "<p></p>",
+  "experienceLevel": "expert",
+  "minAnnualSalary": 40000,
+  "maxAnnualSalary": 40000,
+  "minDailySalary": 420,
+  "maxDailySalary": 420,
+  "currency": "EUR",
+  "duration": 24,
+  "durationValue": 24,
+  "durationPeriod": "month",
+  "renewable": false,
+  "remoteMode": "partial",
+  "applicationType": "turnover",
+  "applicationContact": null,
+  "applicationUrl": null,
+  "location": {
+   "street": null,
+   "locality": "Paris",
+   "postalCode": "75000",
+   "adminLevel1": "Île-de-France",
+   "adminLevel2": "Paris",
+   "country": "France",
+   "countryCode": "FR",
+   "latitude": "48.8534951",
+   "longitude": "2.3483915",
+   "key": "fr~ile-de-france~paris~paris",
+   "label": "Paris, Île-de-France",
+   "shortLabel": "Paris (75)"
+  },
+  "startsAt": null,
+  "company": {
+   "id": 38072,
+   "name": "Gamme solutions",
+   "slug": "gamme-solutions-1"
+  },
+  "job": {
+   "id": 118,
+   "nameForContribution": "Ingénieur·e devops (Cloud)",
+   "nameForContributionSlug": "ingenieur-devops-cloud",
+   "nameForUser": "Ingénieur·e devops (Cloud)",
+   "nameForUserSlug": "ingenieur-devops-cloud",
+   "shortName": "Ingénieur·e devops",
+   "name": "Ingénieur·e devops (Cloud)",
+   "slug": "ingenieur-devops-cloud"
+  },
+  "skills": [
+   {
+    "id": 721028,
+    "displayed": false,
+    "name": "CI/CD",
+    "slug": "ci-cd-118"
+   },
+   {
+    "id": 721029,
+    "displayed": false,
+    "name": "DevOps",
+    "slug": "devops-40"
+   },
+   {
+    "id": 721030,
+    "displayed": false,
+    "name": "Gitlab",
+    "slug": "gitlab-46"
+   },
+   {
+    "id": 721031,
+    "displayed": false,
+    "name": "Grafana",
+    "slug": "grafana-36"
+   },
+   {
+    "id": 721032,
+    "displayed": false,
+    "name": "IAM",
+    "slug": "iam-27"
+   },
+   {
+    "id": 721033,
+    "displayed": false,
+    "name": "Kubernetes",
+    "slug": "kubernetes-81"
+   },
+   {
+    "id": 721034,
+    "displayed": false,
+    "name": "OpenTelemetry",
+    "slug": "opentelemetry-12"
+   },
+   {
+    "id": 721035,
+    "displayed": false,
+    "name": "Prometheus",
+    "slug": "prometheus-23"
+   },
+   {
+    "id": 721036,
+    "displayed": false,
+    "name": "Python",
+    "slug": "python-142"
+   },
+   {
+    "id": 721037,
+    "displayed": false,
+    "name": "Terraform",
+    "slug": "terraform-81"
+   }
+  ],
+  "createdAt": "2026-10-07T17:00:39+02:00",
+  "updatedAt": "2026-10-07T22:45:37+02:00",
+  "publishedAt": "2026-10-07T17:00:39+02:00",
+  "status": "published",
+  "softSkills": [],
+  "expiredAt": "2026-12-06T23:59:59+01:00",
+  "modifiedByUserAt": null,
+  "locale": "fr_FR",
+  "premium": false,
+  "applicationForm": null,
+  "contracts": [
+   "fixed-term",
+   "permanent",
+   "contractor"
+  ],
+  "annualSalary": "40k €",
+  "dailySalary": "420 €",
+  "published": true,
+  "noIndex": false,
+  "external": false,
+  "externalSource": null
+ },
+ {
+  "id": 678971,
+  "title": "DevOps",
+  "slug": "devops-874",
+  "description": "<p>Notre client dans le secteur Assurance recherche un/une DevOps H/F</p><p></p><p><strong>Description de la mission :</strong></p><p>Rattaché à la centrale de financement du groupe, notre client enta",
+  "candidateProfile": "<p><strong>Compétences / Qualités indispensables :</strong></p><p>clouflare, Aws</p><p></p><p><strong>Compétences / Qualités qui seraient un &#43; :</strong></p><p>Wordpress, Office 365, coordination<",
+  "companyDescription": null,
+  "experienceLevel": "intermediate",
+  "minAnnualSalary": null,
+  "maxAnnualSalary": null,
+  "minDailySalary": 480,
+  "maxDailySalary": 480,
+  "currency": "EUR",
+  "duration": 6,
+  "durationValue": 6,
+  "durationPeriod": "month",
+  "renewable": true,
+  "remoteMode": "partial",
+  "applicationType": "turnover",
+  "applicationContact": null,
+  "applicationUrl": null,
+  "location": {
+   "street": null,
+   "locality": null,
+   "postalCode": null,
+   "adminLevel1": "Île-de-France",
+   "adminLevel2": "Paris",
+   "country": "France",
+   "countryCode": "FR",
+   "latitude": "48.8588897",
+   "longitude": "2.3200410",
+   "key": "fr~ile-de-france~paris~",
+   "label": "Paris, France",
+   "shortLabel": "Paris"
+  },
+  "startsAt": "2026-11-02T00:00:00+01:00",
+  "company": {
+   "id": 22053,
+   "name": "LeHibou",
+   "slug": "lehibou"
+  },
+  "job": {
+   "id": 118,
+   "nameForContribution": "Ingénieur·e devops (Cloud)",
+   "nameForContributionSlug": "ingenieur-devops-cloud",
+   "nameForUser": "Ingénieur·e devops (Cloud)",
+   "nameForUserSlug": "ingenieur-devops-cloud",
+   "shortName": "Ingénieur·e devops",
+   "name": "Ingénieur·e devops (Cloud)",
+   "slug": "ingenieur-devops-cloud"
+  },
+  "skills": [
+   {
+    "id": 35329,
+    "displayed": true,
+    "name": "Amazon Redshift",
+    "slug": "amazon-redshift"
+   },
+   {
+    "id": 14772,
+    "displayed": true,
+    "name": "Cloudflare",
+    "slug": "cloudflare"
+   }
+  ],
+  "createdAt": "2026-10-06T14:18:18+02:00",
+  "updatedAt": "2026-10-08T00:24:49+02:00",
+  "publishedAt": "2026-10-06T14:18:18+02:00",
+  "status": "published",
+  "softSkills": [],
+  "expiredAt": "2026-12-05T14:18:18+01:00",
+  "modifiedByUserAt": null,
+  "locale": "fr_FR",
+  "premium": false,
+  "applicationForm": {
+   "id": 5581,
+   "questions": []
+  },
+  "contracts": [
+   "contractor"
+  ],
+  "annualSalary": null,
+  "dailySalary": "480 €",
+  "published": true,
+  "noIndex": false,
+  "external": false,
+  "externalSource": null
+ }
+]
