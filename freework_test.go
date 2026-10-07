@@ -53,7 +53,7 @@ func TestSearchFiltersAndDedupes(t *testing.T) {
 	in := defaultInput()
 	in.RemoteMode, in.Locations, in.MinDailyRate = "full", []string{"Île-de-France"}, 500
 	var got []Mission
-	st, err := testFetcher(srv.URL).Search(context.Background(), in, func(m Mission) bool { got = append(got, m); return true })
+	st, err := testFetcher(srv.URL).Search(context.Background(), in, nil, func(m Mission) bool { got = append(got, m); return true })
 	if err != nil || len(got) != 1 || got[0].ID != 1 {
 		t.Fatalf("got=%v err=%v", got, err)
 	}
@@ -71,7 +71,7 @@ func TestSearchFailsLoudly(t *testing.T) {
 		srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) { w.Write([]byte(body)) }))
 		in := defaultInput()
 		in.Keywords = ""
-		if _, err := testFetcher(srv.URL).Search(context.Background(), in, func(Mission) bool { return true }); err == nil {
+		if _, err := testFetcher(srv.URL).Search(context.Background(), in, nil, func(Mission) bool { return true }); err == nil {
 			t.Errorf("%s: expected error", name)
 		}
 		srv.Close()

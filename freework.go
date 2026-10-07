@@ -142,6 +142,8 @@ type Mission struct {
 	ExperienceLevel   string   `json:"experienceLevel"`
 	PublishedAt       string   `json:"publishedAt"`
 	Description       string   `json:"description,omitempty"`
+	IsNew             bool     `json:"isNew"`
+	FirstSeenAt       string   `json:"firstSeenAt"`
 	ScrapedAt         string   `json:"scrapedAt"`
 }
 
@@ -247,6 +249,7 @@ type Stats struct {
 	Scanned  int `json:"scanned"`  // raw postings fetched
 	Filtered int `json:"filtered"` // dropped by input filters
 	Dupes    int `json:"duplicates"`
+	Seen     int `json:"alreadySeen"` // skipped in monitor mode
 	Returned int `json:"returned"`
 }
 
@@ -259,8 +262,8 @@ func validate(r rawJob) error {
 }
 
 // Search pages through the API, applies input filters, and calls emit per new mission
-// (emit returns false to stop). Dedupes by id.
-func (f *Fetcher) Search(ctx context.Context, in Input, emit func(Mission) bool) (Stats, error) {
+// (emit returns false to stop). Dedupes by id; alreadySeen (optional) skips known missions.
+func (f *Fetcher) Search(ctx context.Context, in Input, alreadySeen func(id int) bool, emit func(Mission) bool) (Stats, error) {
 	var st Stats
 	seen := map[int]bool{}
 	cutoff := time.Now().AddDate(0, 0, -in.PublishedWithinDays)
@@ -293,6 +296,10 @@ func (f *Fetcher) Search(ctx context.Context, in Input, emit func(Mission) bool)
 				seen[r.ID] = true
 				if !in.keep(r, cutoff) {
 					st.Filtered++
+					continue
+				}
+				if alreadySeen != nil && alreadySeen(r.ID) {
+					st.Seen++
 					continue
 				}
 				st.Returned++
