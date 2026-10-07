@@ -27,3 +27,56 @@ No login, no captcha bypass, no recruiter personal data (names, emails, phones),
 - Return only factual fields (title, company, rate, remote, location, skills, dates, URL); link back to the original; do not republish full descriptions by default (`includeDescriptions` defaults to false).
 - Consider asking Free-Work/AGSI for written permission or an official feed/API.
 - Be ready to take the Actor down if asked.
+
+## 2. Endpoints (discovered 2026-10-08)
+
+Use an honest `User-Agent` (`free-work-scraper/<version> (+https://github.com/firas-apify-actor/free-work-scraper)`), `Accept: application/json`, no cookies, no login. Plain `curl` works; no captcha or bot wall was met on datacenter-free requests (not yet tested through Apify datacenter proxy).
+
+### Primary: JSON API (what the website's own front-end calls)
+`GET https://www.free-work.com/api/job_postings`
+
+Returns a bare JSON array (no total count, no pagination envelope). 8 test calls in total were enough to map it.
+
+| Param | Notes |
+|---|---|
+| `searchKeywords` | Free text. (`query`/`q` are ignored.) With keywords the order is relevance; **without keywords the order is newest first**. |
+| `contracts` | Scalar: `contractor`, `permanent`, `fixed-term` (other values e.g. internship not observed). Array syntax (`contracts[]=`) → HTTP 400. |
+| `remoteMode` | `full`, `partial`, `none` (field in the response; filter param name to be confirmed in M2 with a fixture — see open question 2). |
+| `page` | 1-based. |
+| `itemsPerPage` | Accepted (tried 2–30). Keep ≤30. |
+| `premium=false` | Used by the site's home widget; not needed. |
+
+Unknown params are **silently ignored** (no error), so every filter must be verified by checking the result, not the status code. Tried and ignored: `locations`, `location`, `sort`, `order`, `orderBy`, `publishedSince`, `publishedAt`. `order[...]` → 400.
+
+### Fallback: server-rendered search page
+`GET https://www.free-work.com/fr/tech-it/jobs?query=…&contracts=contractor&remote=full&locations=fr~ile-de-france~paris~paris&page=2`
+
+A Nuxt page whose `<script id="__NUXT_DATA__">` holds a devalue-encoded payload; `data["jobs-search-/fr/tech-it/jobs"]` = `{jobs[16], totalItems, filters, page}`. It **does** honour `locations` and gives `totalItems`, but it carries fewer fields (single `dailySalary`, no min/max) and is HTML-sized (~700 KB/page). Keep only as fallback for location filtering / totals.
+
+### Response fields we use (API)
+`id`, `title`, `slug`, `job.slug`, `company.name`, `contracts[]`, `minDailySalary`/`maxDailySalary` (numbers, EUR, **already structured: no TJM string parsing needed**), `minAnnualSalary`/`maxAnnualSalary`, `currency`, `remoteMode`, `location.{label,locality,adminLevel1,adminLevel2,key,latitude,longitude}`, `skills[].name`, `duration`+`durationPeriod` (`month`/`year`), `startsAt`, `experienceLevel` (`junior?`/`intermediate`/`senior`/`expert`/null), `publishedAt`, `description` (HTML), `renewable`.
+
+Mission URL: `https://www.free-work.com/fr/tech-it/job-mission/{job.slug}/{slug}`.
+
+**Never output:** `applicationContact`, `applicationUrl`, `applicationForm`, `candidateProfile`, `companyDescription`, `company.*` beyond the name. `applicationContact` was null in all 30 sampled items, but free-text descriptions can contain emails/phone numbers (1 of 30 matched): strip them when `includeDescriptions` is on.
+
+Sample (trimmed, texts cut to 200 chars): `testdata/job_postings_sample.json`.
+
+## 3. Input → site parameter mapping
+
+| Input | Site | Notes |
+|---|---|---|
+| `keywords` | `searchKeywords` | |
+| `contractTypes` `freelance` / `cdi` / `cdd` | `contracts=contractor` / `permanent` / `fixed-term` | One API call per contract type, dedupe by `id`. `internship` not observed: reject with a clear error until verified. |
+| `remoteMode` `any` / `full` / `partial` / `none` | no param / `full` / `partial` / `none` | Also re-checked client-side on the `remoteMode` field. |
+| `locations` (city/region names) | match `location.key` prefix client-side (`fr~{region}~{dept}~{city}`, slugified, empty segment = wildcard) | API has no location filter; scan more pages. Page endpoint supports `locations=<key>` if volume gets too high. |
+| `publishedWithinDays` | client-side on `publishedAt` | Without keywords results are newest-first, so stop at the first older item. With keywords order is relevance: scan up to a page cap. |
+| `minDailyRate` | client-side on `maxDailySalary` (fallback `minDailySalary`) | |
+| `maxItems` | stop condition | |
+| `includeDescriptions` | strip HTML from `description` | Always present in the list response: no detail call needed → half the requests. |
+
+## 4. Open questions for M2
+1. Does the `/api/job_postings` filter param for location exist (e.g. `locations` in a different casing)? Otherwise client-side matching.
+2. Confirm `remoteMode` API filter param name (only the page param `remote` was verified).
+3. Max safe `itemsPerPage`; does the datacenter proxy get blocked?
+4. Is there an internship contract value?
