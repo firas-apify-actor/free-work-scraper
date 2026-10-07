@@ -1,0 +1,23 @@
+{
+  "title": "Free-Work Scraper input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "keywords": {
+      "title": "Keywords",
+      "type": "string",
+      "description": "Search text, for example a job title or a technology.",
+      "default": "devops",
+      "prefill": "devops",
+      "editor": "textfield"
+    },
+    "maxItems": {
+      "title": "Max items",
+      "type": "integer",
+      "description": "Hard cap on the number of missions returned.",
+      "default": 100,
+      "prefill": 100,
+      "minimum": 1
+    }
+  }
+}
