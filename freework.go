@@ -145,6 +145,8 @@ type Mission struct {
 	IsNew             bool     `json:"isNew"`
 	FirstSeenAt       string   `json:"firstSeenAt"`
 	ScrapedAt         string   `json:"scrapedAt"`
+
+	role string // job slug, used only for benchmarks
 }
 
 var contractParam = map[string]string{"freelance": "contractor", "cdi": "permanent", "cdd": "fixed-term"}
@@ -176,7 +178,7 @@ func (r rawJob) mission(withDesc bool) Mission {
 		SalaryMin: r.MinAnnualSalary, SalaryMax: r.MaxAnnualSalary, RemoteMode: rm,
 		Location: r.Location.Label, Region: r.Location.AdminLevel1, DurationMonths: r.Duration,
 		ExperienceLevel: normalizeExperience(r.ExperienceLevel), PublishedAt: r.PublishedAt,
-		ScrapedAt: time.Now().UTC().Format(time.RFC3339), Skills: []string{},
+		ScrapedAt: time.Now().UTC().Format(time.RFC3339), Skills: []string{}, role: r.Job.Slug,
 	}
 	for _, s := range r.Skills {
 		m.Skills = append(m.Skills, s.Name)
