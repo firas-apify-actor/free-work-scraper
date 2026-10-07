@@ -31,9 +31,9 @@ type Fetcher struct {
 	last        time.Time
 }
 
-func NewFetcher() *Fetcher {
+func NewFetcher(useProxy bool) *Fetcher {
 	tr := &http.Transport{}
-	if pw := os.Getenv("APIFY_PROXY_PASSWORD"); pw != "" {
+	if pw := os.Getenv("APIFY_PROXY_PASSWORD"); pw != "" && useProxy {
 		u, _ := url.Parse("http://auto:" + pw + "@proxy.apify.com:8000")
 		tr.Proxy = http.ProxyURL(u)
 	}
