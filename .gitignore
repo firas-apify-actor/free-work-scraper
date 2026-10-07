@@ -1,0 +1,5 @@
+storage/
+.claude-flow/
+/free-work-scraper
+*.exe
+.DS_Store
